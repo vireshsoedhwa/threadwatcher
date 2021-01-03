@@ -2,3 +2,4 @@ migrations
 *.json
 database
 __pycache__
+data
