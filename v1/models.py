@@ -1,9 +1,20 @@
 from django.db import models
-
+# from django.db.models.functions import (
+#     ExtractDay, ExtractHour, ExtractMinute, ExtractMonth,
+#     ExtractQuarter, ExtractSecond, ExtractWeek, ExtractIsoWeekDay,
+#     ExtractWeekDay, ExtractIsoYear, ExtractYear,
+#  )
 # Create your models here.
 
 def file_directory_path(instance, filename):
-    return 'input/{0}/{1}'.format(instance.id, "doc")
+
+    year = str(instance.created_at.year)
+    month = str(instance.created_at.month)
+    day = str(instance.created_at.day)
+
+    date = year + "-" + month + "-" + day
+
+    return 'data/{0}/{1}{2}'.format(date, instance.tim, instance.ext)
 
 
 class MediaItem(models.Model):
@@ -27,6 +38,9 @@ class Post(models.Model):
     postid = models.DecimalField(max_digits=10,decimal_places=0,primary_key=True)
     ext = models.CharField(max_length=10, null=True, blank=True)
     tim = models.CharField(max_length=10, null=True, blank=True)
+    mediafile = models.FileField(upload_to=file_directory_path, null=True, blank=True)
+    fetched = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return str(self.postid) + " " + str(self.tim) + " " + str(self.ext)
 
