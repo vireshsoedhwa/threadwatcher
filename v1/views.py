@@ -7,7 +7,7 @@ from rest_framework.response import Response
 import logging
 logger = logging.getLogger(__name__)
 
-from .tasks import getthreads
+from .tasks import get_all_threads, filter_threads
 
 # Create your views here.
 class GetB(APIView):
@@ -27,7 +27,8 @@ class GetB(APIView):
 
         # logger.error(x.json()[0]['page'])
 
-        
-        getthreads()
+
+        get_all_threads()
+        filter_threads()
 
         return Response('x.json()')
