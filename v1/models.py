@@ -16,22 +16,15 @@ def file_directory_path(instance, filename):
 
     return 'data/{0}/{1}{2}'.format(date, instance.tim, instance.ext)
 
-
-class MediaItem(models.Model):
-    name = models.CharField(max_length=100)
-    inputfile = models.FileField(upload_to=file_directory_path)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
 class Thread(models.Model):
     threadid = models.DecimalField(max_digits=10,decimal_places=0,primary_key=True)
     summary = models.CharField(max_length=1000)
     active = models.BooleanField(null=True)
+    section = models.CharField(max_length=50, null=True)
+    mediacount = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return str(self.threadid) + " " + str(self.active)
+        return str(self.threadid) + " Mediacount:" + str(self.mediacount)
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
