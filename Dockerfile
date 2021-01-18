@@ -15,8 +15,12 @@ RUN apt-get update &&  \
 RUN pip install --upgrade pip
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY v1 .
+COPY threadwatcher .
+COPY manage.py .
+COPY docker-entrypoint.sh .
 
 # EXPOSE 9000
 RUN chmod +x ./docker-entrypoint.sh
