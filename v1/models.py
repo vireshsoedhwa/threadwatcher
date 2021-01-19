@@ -14,7 +14,7 @@ def file_directory_path(instance, filename):
 
     date = year + "-" + month + "-" + day
 
-    return 'data/{0}/{1}{2}'.format(date, instance.tim, instance.ext)
+    return 'data/{0}/{1}/{2}{3}'.format(date, instance.thread.section , instance.tim, instance.ext)
 
 class Thread(models.Model):
     threadid = models.DecimalField(max_digits=10,decimal_places=0,primary_key=True)
@@ -24,7 +24,7 @@ class Thread(models.Model):
     mediacount = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return str(self.threadid) + " Mediacount:" + str(self.mediacount)
+        return str(self.threadid) + " Section: "+ str(self.section) +" - Mediacount:" + str(self.mediacount)
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
